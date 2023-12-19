@@ -1,0 +1,113 @@
+body {
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background-color: black;
+}
+
+#timer {
+  text-align: center;
+}
+
+#buttons {
+  margin-bottom: 10px;
+}
+
+#time-display {
+  font-size: 9em;
+  margin-bottom: 10px;
+  color: white;
+}
+
+#controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button,
+img {
+  font-size: 1em;
+  margin: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#reset-button {
+  margin-right: 5px;
+  width: 45px;
+  height: 45px;
+  border: none;
+}
+
+#buttons-container {
+  position: relative;
+}
+
+#hearts-container {
+  position: absolute;
+  bottom: px; 
+  left: 40.5%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+#hearts-container i {
+  font-size: 0.9em;
+  margin: 0.8px;
+  color: white;
+}
+
+#icon {
+  margin-right: -40px;
+  width: 100px;
+  height: 100px;
+  margin-bottom: -43px;
+  margin-left: 10px;
+  margin-right: -50px;
+}
+
+#focus {
+  width: 290px; 
+  margin-left: -30px;
+  border: none; 
+  outline: none;
+  font-size: 1.3em;
+  margin-bottom : 10px;
+  text-align : center;
+  background-color: transparent;
+  color:white;
+  font-family: 'Nanum Myeongjo', serif; 
+  font-color: white;
+}
+#focus::placeholder {
+  color: white;
+}
+
+#pomodoro-button,
+#short-break-button,
+#long-break-button,
+#start-button {
+  font-size: 1.5em;
+  margin: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: white;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 10px;
+  font-family: 'Nanum Myeongjo', serif; 
+}
+
+img,
+#reset-button {
+  font-size: 1em;
+  margin: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: white;
+  background-color: transparent;
+}
