@@ -73,8 +73,12 @@ function resetTimer() {
 function completePomodoro() {
   completedPomodoros++;
   updatePomodoroCounter();
-}
 
+  if (completedPomodoros === 5) {
+    completedPomodoros = 0;
+    updatePomodoroCounter();
+  }
+}
 function updatePomodoroCounter() {
   const heartsContainer = document.getElementById('hearts-container');
   heartsContainer.innerHTML = '';
