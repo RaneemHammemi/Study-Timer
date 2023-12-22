@@ -12,11 +12,13 @@ let isRunning = false;
 let pomodoroCount = 0;
 let selectedDuration = 1500; 
 let completedPomodoros = 0;
-let userFocus = ''; 
+let userFocus = '';
+let currentTimerType = 'pomodoro';
+
 function startTimer() {
   if (!isRunning) {
     let timeLeft = selectedDuration;
-    document.title = userFocus !== '' ? `(${userFocus}) Pomodoro Timer` : 'Pomodoro Timer'; // Update page title
+    document.title = userFocus !== '' ? `(${userFocus}) Pomodoro Timer` : 'Pomodoro Timer'; 
     timer = setInterval(function () {
       if (timeLeft > 0) {
         timeLeft--;
@@ -26,25 +28,33 @@ function startTimer() {
         isRunning = false;
         document.title = 'Take a break!'; 
         alert("Time's up! Take a break!");
+        playAlertSound();
         completePomodoro();
-        if (pomodoroCount % 2 === 0) {
+        
+        // Update timer type and duration
+        if (currentTimerType === 'pomodoro') {
           setTimerDuration(300); 
-        } else {
-         
-          if (pomodoroCount % 5 === 0) {
-            setTimerDuration(600); 
-          } else {
-            
-            setTimerDuration(1500); 
-          }
+          currentTimerType = 'short-break';
+        } else if (currentTimerType === 'short-break') {
+          setTimerDuration(1500); 
+          currentTimerType = 'pomodoro';
         }
-        pomodoroCount++;
-        startTimer();
+
+        startTimer(); 
       }
     }, 1000);
 
     isRunning = true;
+  } else {
+    clearInterval(timer);
+    isRunning = false;
+    rotateResetButton(); 
   }
+}
+
+function playAlertSound() {
+  const alertSound = document.getElementById('alert-sound');
+  alertSound.play();
 }
 
 function displayTime(time) {
@@ -63,11 +73,13 @@ function setTimerDuration(duration) {
 }
 
 function resetTimer() {
+  playAlertSound();
   clearInterval(timer);
   isRunning = false;
   document.title = userFocus !== '' ? `(${userFocus}) Pomodoro Timer` : 'Pomodoro Timer'; 
   displayTime(selectedDuration); 
   rotateResetButton();
+    document.getElementById('start-button').innerText = 'Start';
 }
 
 function completePomodoro() {
@@ -86,9 +98,9 @@ function updatePomodoroCounter() {
   for (let i = 0; i < 5; i++) {
     const heartIcon = document.createElement('i');
     if (i < completedPomodoros) {
-      heartIcon.classList.add('fas', 'fa-heart'); // Filled heart
+      heartIcon.classList.add('fas', 'fa-heart'); 
     } else {
-      heartIcon.classList.add('far', 'fa-heart'); // Empty heart
+      heartIcon.classList.add('far', 'fa-heart'); 
     }
     heartsContainer.appendChild(heartIcon);
   }
@@ -103,19 +115,35 @@ function rotateResetButton() {
     resetButton.style.transform = 'rotate(0deg)';
   }, 500);
 }
+document.getElementById('start-button').addEventListener('click', function () {
+  if (!isRunning) {
+    startTimer();
+    document.getElementById('start-button').innerText = 'Pause';
+  } else {
+    clearInterval(timer);
+    isRunning = false;
+    document.getElementById('start-button').innerText = 'Resume'; 
+  }
+});
+
 document.getElementById('pomodoro-button').addEventListener('click', function () {
+  currentTimerType = 'pomodoro';
   setTimerDuration(1500);
+  resetTimer();
 });
 
 document.getElementById('short-break-button').addEventListener('click', function () {
+  currentTimerType = 'short-break';
   setTimerDuration(300);
+  resetTimer();
 });
 
 document.getElementById('long-break-button').addEventListener('click', function () {
+  currentTimerType = 'long-break';
   setTimerDuration(600);
+  resetTimer();
 });
 
-document.getElementById('start-button').addEventListener('click', startTimer);
 document.getElementById('reset-button').addEventListener('click', resetTimer);
 
 
