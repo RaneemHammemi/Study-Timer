@@ -80,6 +80,13 @@ function resetTimer() {
   clearInterval(timer);
   isRunning = false;
   document.title = userFocus !== '' ? `(${userFocus}) Pomodoro Timer` : 'Pomodoro Timer'; 
+   if (currentTimerType === 'pomodoro') {
+    setTimerDuration(1500);
+  } else if (currentTimerType === 'short-break') {
+    setTimerDuration(300);
+  } else if (currentTimerType === 'long-break') {
+    setTimerDuration(600);
+  }
   displayTime(selectedDuration); 
   rotateResetButton();
     document.getElementById('start-button').innerText = 'Start';
