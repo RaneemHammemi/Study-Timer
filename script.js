@@ -53,6 +53,8 @@ function startTimer() {
     rotateResetButton();
   }
 }
+
+
 function playAlertSound() {
   const alertSound = document.getElementById('alert-sound');
   alertSound.play();
